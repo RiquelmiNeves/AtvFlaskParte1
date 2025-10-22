@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>contato</title>
-</head>
-<body>
-    <h1><b>Meus dados</b></h1>
-    <p>Telefone: (69) 9 99322-7722</p>
-    <p>E-mail: rick@gmail.com</p>
-    <p>Pix: 69993232647</p>
-</body>
-</html>
+{% extends 't_base.html' %}
+<!-- Diretiva do Flask para indicar que esta página tem um template chamado base.html -->
+
+{% block conteudo %}
+    <h1>Meus dados (versão fixa)</h1>
+    <p>e-mail  : soutsi@ifro.edu.br</p>
+    <p>telefone: (69) 3225.4837</p>
+
+{% endblock %} 
