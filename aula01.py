@@ -1,19 +1,20 @@
-
-from flask import Flask  #importa a biblioteca. flask diferente de Flask
+from flask import Flask
 
 app_rick = Flask (__name__) #cria objeto da aplicação. 
-                               # Tem 2 underlines antes e depois de name
 
-@app_rick.route('/')
-@app_rick.route('/ola') # rota para solicitação web
-                           # @ significa decorador
-def raiz():                # função a ser executa quando chamar rota acima ('/ola')
+@app_rick.route('/')    #rota para solicitação web
+@app_rick.route('/rota1') #rota para solicitação web
+def rota1():  # função a ser executa quando chamar rotas acima ('/') e ('/rota1')
     return 'Olá, turma!'
 
-def saudacoes (nome):
-    return f'Olá, {nome}!'
+@app_rick.route('/rota2')
+def rota2():
+    resposta = "<H3> Essa é outra página da rota 2 <H3>"
+    return resposta
 
-if __name__ == "__main__" : # Dois underlines no name e no main
-    # diferenciar quando é executado aqui, como um script princial
-    # ou é invocado por fora, quando importado por um módulo
+#função que não pertence a nenhuma rota. 
+def saudacoes (nome): 
+    return f'Olá, {nome}'
+
+if __name__ == "__main__" :
     app_rick.run(port = 8000)  #executa aplicação
