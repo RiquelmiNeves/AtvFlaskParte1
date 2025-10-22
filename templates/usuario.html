@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuario</title>
-</head>
-<body>
-    <h1>Seja bem vindo {{dados[ 'nome' ]}}</h1>
-    <p><b>Profissão:</b> {{dados[ 'profissao' ]}}.</p>
-    <p><b>Disciplina:</b>{{dados[ 'disciplina' ]}}.</p>
-</body>
-</html>
+{% extends 't_base.html' %}
+ 
+{% block conteudo %}
+
+<h2>Olá, {{nome}} </h2>
+<p>
+    <!-- 'static' é a pasta do projeto onde copio as imagens -->
+    <img class="imgquadrada" src = "{{ url_for ('static', filename = 'imagens/professora.jpg') }}" >
+    
+    <br>
+    <b>Profissão: </b> {{ dados['profissao']  }} <br/>
+    <b>Disciplina: </b> {{ dados['disciplina']  }}
+</p>
+
+{% endblock %}  
