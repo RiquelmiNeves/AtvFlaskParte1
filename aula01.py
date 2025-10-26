@@ -1,4 +1,6 @@
 from flask import Flask, render_template
+from flask import request  
+#adicionar para trabalhar com os métodos GET e POST
 
 app_rick = Flask(__name__, template_folder='templates') 
 # os templates coloca em outra pasta. 
@@ -8,26 +10,43 @@ app_rick = Flask(__name__, template_folder='templates')
 @app_rick.route("/")       #se no navegador digitar / ou /index
 @app_rick.route("/index")  
 def indice():
-    return render_template ("t_index.html") #optei por prefixar com t_ os nomes dos arquivos que usam template
+    return render_template ("t_index.html")                                               #optei por prefixar com t_ os nomes dos arquivos que usam template
 
 @app_rick.route("/contato")
 def contato():
     return render_template("t_contato.html") 
 
-@app_rick.route("/login")
-def login():
-    return render_template("t_login.html") 
-
-@app_rick.route("/usuario", defaults={"nome_usuario":"usuário?","nome_profissao":""}) 
+#rota /usuarios COM passagem de argumentos
+@app_rick.route("/usuarios/<nome_usuario>;<nome_profissao>")
+#rota /usuarios SEM passagem de argumentos --> definir valor padrão com defaults
+@app_rick.route("/usuarios", defaults={"nome_usuario":"usuário?","nome_profissao":""})  
 def usuarios (nome_usuario, nome_profissao):
     dados_usu = {"profissao": nome_profissao, "disciplina":"Desenvolvimento Web III"}
     return render_template ("t_usuario.html", nome=nome_usuario, dados = dados_usu)  
 
+#new
+@app_rick.route("/login")
+def login():
+    return render_template("t_login.html") 
 
-#rota /usuarios COM passagem de argumentos
-#@app_rick.route("/usuario/<nome_usuario>;<nome_profissao>")
-#rota /usuarios SEM passagem de argumentos --> definir valor padrão com defaults
+#new
+"""
+Para poder recuperar os argumentos passados nos parâmetros na URL precisa importar o pacote
+from flask import request
+
+Também precisa colocar que essa página aceita requisições de tipo GET ou POST
+O GET é padrão, mas no caso do POST altere no html method="POST"
+"""
+@app_rick.route("/autenticar", methods=['POST'] ) 
+def autenticar():
+    #método GET - recebe pela URL ==> (args)
+    #usuario = request.args.get('nome_usuario')
+    #senha = request.args.get('senha')
+
+    #, methods=['POST'] método POST - pega nos fields (campos) do formulário => form
+    usuario = request.form.get('nome_usuario')
+    senha = request.form.get('senha')
+    return f"usuario: {usuario} e senha: {senha}"
 
 if __name__ == "__main__": 
      app_rick.run(port = 8000) 
-     
